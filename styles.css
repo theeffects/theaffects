@@ -455,6 +455,38 @@ img {
     line-height: 1.6;
     font-size: 1rem;
 }
+/* === АНИМАЦИЯ ПУЛЬСАЦИИ ДЛЯ КАРТОЧЕК УСЛУГ (как у Telegram-иконки) === */
+@keyframes pulse-card {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    50% {
+        transform: scale(1.03); /* Чуть заметнее, но плавно */
+        box-shadow: 0 14px 35px rgba(122, 95, 79, 0.28);
+    }
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(212, 200, 192, 0.3);
+    
+    /* Плавная пульсация — как у Telegram-иконки */
+    animation: pulse-card 2s ease-in-out infinite;
+    will-change: transform, box-shadow; /* Оптимизация для плавности */
+}
+
+/* Останавливаем пульсацию при наведении — карточка «реагирует» на пользователя */
+.service-card:hover {
+    animation-play-state: paused;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
 
 
 /* ========================================
