@@ -420,6 +420,16 @@ img {
     gap: 30px;
 }
 
+/* === АНИМАЦИЯ ПУЛЬСАЦИИ ТЕНИ (как у Telegram-иконки) === */
+@keyframes pulse-shadow {
+    0%, 100% {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    50% {
+        box-shadow: 0 14px 35px rgba(122, 95, 79, 0.35); /* Цвет акцента + больше размытие */
+    }
+}
+
 .service-card {
     background: rgba(255, 255, 255, 0.85);
     border-radius: 16px;
@@ -428,33 +438,21 @@ img {
     backdrop-filter: blur(4px);
     transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid rgba(212, 200, 192, 0.3);
+    
+    /* Пульсация тени — 2 секунды, бесконечно, плавно */
+    animation: pulse-shadow 2s ease-in-out infinite;
+    
+    /* Оптимизация для мобильных */
+    will-change: box-shadow;
 }
 
+/* При наведении — останавливаем пульсацию и поднимаем карточку */
 .service-card:hover {
+    animation-play-state: paused;
     transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
-.service-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 12px;
-    color: #7a5f4f;
-    font-weight: 700;
-}
-
-.price {
-    font-size: 1.4rem;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 16px;
-    display: block;
-}
-
-.service-card p {
-    color: #6b5b52;
-    line-height: 1.6;
-    font-size: 1rem;
-}
 /* === АНИМАЦИЯ ПУЛЬСАЦИИ ДЛЯ КАРТОЧЕК УСЛУГ (как у Telegram-иконки) === */
 @keyframes pulse-card {
     0%, 100% {
