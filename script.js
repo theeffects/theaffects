@@ -237,49 +237,48 @@ if (contactForm) {
   }
   
 // === Модальное окно услуг ===
-const serviceCards = document.querySelectorAll('.service-card');
-const serviceModal = document.getElementById('service-modal');
-const modalOverlay = document.querySelector('.modal-overlay');
-const modalClose = document.querySelector('.modal-close');
-const modalImg = document.getElementById('modal-img');
-const modalTitle = document.getElementById('modal-title');
-const modalPrice = document.getElementById('modal-price');
-const modalDesc = document.getElementById('modal-desc');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const serviceModal = document.getElementById('service-modal');
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const modalCloseBtn = document.querySelector('.modal-close');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalPrice = document.getElementById('modal-price');
+    const modalDesc = document.getElementById('modal-desc');
 
-// Данные для каждой услуги
-const serviceData  = {
+    // Данные для каждой услуги (ключи должны совпадать с data-service в HTML)
+    const serviceData = {
         smoke: {
             title: "Тяжелый дым",
             price: "от 5 000 ₽",
+            image: "images/smoke.jpg",
             description: `
                 <p class="modal-intro">Эффект «танца на облаках» для вашего события. Дым стелется по полу, не поднимаясь вверх.</p>
-                
                 <ul class="modal-features">
                     <li><strong>Безопасно:</strong> без запаха, не оставляет следов на одежде и полу.</li>
                     <li><strong>Эффектно:</strong> скрывает несовершенства пола, идеален для фото/видео.</li>
                     <li><strong>Длительность:</strong> плотный слой держится 3–5 минут.</li>
                     <li><strong>Подходит для:</strong> первого танца, выхода молодоженов, фотосессий.</li>
-                </ul>
-            `
+                </ul>`
         },
         photobooth: {
             title: "Фотобудка (Photobooth) с брендированием",
             price: "от 10 000 ₽",
+            image: "images/photobooth.jpg",
             description: `
                 <p class="modal-intro">Развлечение для гостей + памятные фото. Печать на месте (полоски или 10x15) и отправка всех снимков на email.</p>
-                
                 <ul class="modal-features">
                     <li><strong>Персонализация:</strong> дизайн фоторамки с вашими именами/логотипом.</li>
                     <li><strong>Двойная память:</strong> гости забирают фото сразу, вы получаете полную галерею.</li>
                     <li><strong>Для всех:</strong> вместительный обзор 1-15 чел., профессиональный свет, реквизит в комплекте.</li>
                     <li><strong>Форматы печати:</strong> на выбор — классические 10x15 или стильные узкие полоски.</li>
                     <li><strong>Идеально для:</strong> свадеб, корпоративов, дней рождения.</li>
-                </ul>
-            `
+                </ul>`
         },
         fireworks: {
             title: "Пиротехническое шоу любого масштаба",
             price: "от 12 000 ₽",
+            image: "images/fireworks.jpg",
             description: `
                 <p class="modal-intro">От искр у ног до салюта в небе.</p>
                 <ul class="modal-features">
@@ -288,12 +287,12 @@ const serviceData  = {
                     <li>Полное юридическое сопровождение.</li>
                     <li>Сертифицированное оборудование.</li>
                     <li>Гарантия вау-эффекта без дыма и запаха.</li>
-                </ul>
-            `
+                </ul>`
         },
         champagne: {
             title: "Шоу-подача шампанского",
             price: "по запросу",
+            image: "images/champagne.jpg",
             description: `
                 <p class="modal-intro">Эстетика праздника в каждой детали. Превратите традиционный ритуал в главное фото события.</p>
                 <ul class="modal-features">
@@ -301,29 +300,36 @@ const serviceData  = {
                     <li><strong>Премиальное наполнение:</strong> Работаем с вашим алкоголем или подбираем идеальные пары.</li>
                     <li><strong>Визуальный акцент:</strong> Подсветка, сухой лед, живые цветы или фруктовые декорации.</li>
                     <li><strong>Чистота и порядок:</strong> Демонтаж и уборка после завершения шоу входят в стоимость.</li>
-                </ul>
-            `
+                </ul>`
         }
     };
 
-// Открытие модального окна
-serviceCards.forEach(card => {
-  card.addEventListener('click', () => {
-    const serviceType = card.getAttribute('data-service');
-    const data = serviceData[serviceType];
-    
-    if (data && serviceModal) {
-      modalImg.src = data.image;
-      modalImg.alt = data.title;
-      modalTitle.textContent = data.title;
-      modalPrice.textContent = data.price;
-      modalDesc.textContent = data.description;
-      
-      serviceModal.classList.add('active');
-      document.body.classList.add('modal-open');
-    }
-  });
-});
+    // Открытие модального окна
+    serviceCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const serviceType = card.getAttribute('data-service');
+            const data = serviceData[serviceType];
+            
+            // Проверка: существует ли услуга в базе
+            if (data && serviceModal) {
+                // ✅ ИСПРАВЛЕНО: innerHTML вместо textContent для поддержки HTML-тегов
+                modalDesc.innerHTML = data.description; 
+                modalTitle.textContent = data.title;
+                modalPrice.textContent = data.price;
+                
+                // ✅ ИСПРАВЛЕНО: проверка на существование изображения
+                if (modalImg && data.image) {
+                    modalImg.src = data.image;
+                    modalImg.alt = data.title;
+                }
+                
+                serviceModal.classList.add('active');
+                document.body.classList.add('modal-open');
+            } else {
+                console.warn('Услуга не найдена:', serviceType);
+            }
+        });
+    });
 
 // Закрытие модального окна
 const closeModal = () => {
