@@ -663,7 +663,10 @@ img {
     /* ✅ Отступ для всего списка */
     padding-left: 5px;
 }
-
+.modal-description .modal-features li::marker {
+    margin-left: 10px; /* Увеличиваем отступ маркера слева */
+    font-size: 1.2em;  /* Размер маркера */
+}
 /* === ПУНКТЫ СПИСКА === */
 .modal-description .modal-features li {
     position: relative;
