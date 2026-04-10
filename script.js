@@ -247,7 +247,7 @@ const modalPrice = document.getElementById('modal-price');
 const modalDesc = document.getElementById('modal-desc');
 
 // Данные для каждой услуги
-const servicesData = {
+const serviceData  = {
         smoke: {
             title: "Тяжелый дым",
             price: "от 5 000 ₽",
