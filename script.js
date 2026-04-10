@@ -331,21 +331,31 @@ if (contactForm) {
         });
     });
 
-// Закрытие модального окна
+// === Закрытие модального окна ===
 const closeModal = () => {
-  if (serviceModal) {
-    serviceModal.classList.remove('active');
-    document.body.classList.remove('modal-open');
-  }
+    if (serviceModal) {
+        serviceModal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
 };
 
-if (modalClose) modalClose.addEventListener('click', closeModal);
+// ✅ ИСПРАВЛЕНО: modalCloseBtn вместо modalClose
+if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
 if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
 
 // Закрытие по ESC
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && serviceModal?.classList.contains('active')) {
-    closeModal();
-  }
+    if (e.key === 'Escape' && serviceModal?.classList.contains('active')) {
+        closeModal();
+    }
 });
+
+// Закрытие при клике вне контента модального окна
+if (serviceModal) {
+    serviceModal.addEventListener('click', (e) => {
+        if (e.target === serviceModal || e.target.classList.contains('modal-overlay')) {
+            closeModal();
+        }
+    });
+}
 });
