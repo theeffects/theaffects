@@ -636,12 +636,59 @@ img {
     font-weight: 700;
     margin-bottom: 20px;
 }
-
+/* === КОНТЕЙНЕР ОПИСАНИЯ В МОДАЛЬНОМ ОКНЕ === */
 .modal-description {
     color: #6b5b52;
     line-height: 1.7;
     font-size: 1.05rem;
-    margin-bottom: 24px;
+
+    padding: 10px 5px;      /* 10px сверху/снизу, 5px слева/справа */
+    margin: 15px 0 25px;    /* отступы до и после блока */
+    text-align: left;
+}
+
+/* === ВВОДНЫЙ АБЗАЦ (modal-intro) === */
+.modal-description .modal-intro {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 20px;    /* отступ снизу до списка */
+    padding-left: 5px;      /* небольшой отступ слева */
+}
+
+/* === СПИСОК ПРЕИМУЩЕСТВ (modal-features) === */
+.modal-description .modal-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* ✅ Отступ для всего списка */
+    padding-left: 5px;
+}
+
+/* === ПУНКТЫ СПИСКА === */
+.modal-description .modal-features li {
+    position: relative;
+    padding-left: 30px;     /* ✅ Место для галочки + отступ текста */
+    margin-bottom: 14px;    /* расстояние между пунктами */
+    line-height: 1.5;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* === ГАЛОЧКА ПЕРЕД ПУНКТОМ === */
+.modal-description .modal-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #7a5f4f;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* === ЖИРНЫЙ ТЕКСТ (до двоеточия) === */
+.modal-description .modal-features li strong {
+    color: #4a3a32;
+    font-weight: 600;
 }
 
 .modal-btn {
